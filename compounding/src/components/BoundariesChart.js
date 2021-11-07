@@ -15,6 +15,10 @@ const options = {
         easing: 'out',
         startup: true,
     },
+    series: {
+        0: {color: '#080808', lineWidth: 2},
+        1: {color: '#008000', lineWidth: 3},
+    },
     curveType: 'function',
     legend: 'none',
     colors: ['#a52714']
@@ -27,7 +31,7 @@ function BoundariesChart(props) {
     return (
         <div>
             <Chart
-                chartType="LineChart"
+                chartType="AreaChart"
                 loader={<div>Loading Chart</div>}
                 data={props.data}
                 options={options}
