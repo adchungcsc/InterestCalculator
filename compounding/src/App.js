@@ -14,8 +14,9 @@ function App() {
 
     const [endInterest, setEndInterest] = useState(null)
 
-    const [investingBlocks, setInvestingBlocks] = useState([
-    ])
+    const [endYearOfCalculationDollars, setEndYearOfCalculationDollars] = useState(null)
+
+    const [investingBlocks, setInvestingBlocks] = useState([])
 
 
     useEffect(() => {
@@ -23,7 +24,7 @@ function App() {
     }, [investingBlocks])
 
 
-    function handleAddInvestingBlock(initial, name, contributions, time, rateReturn, rateInflation){
+    function handleAddInvestingBlock(initial, name, contributions, time, rateReturn, rateInflation) {
         let temp = investingBlocks
         temp.push({
             name: name,
@@ -41,8 +42,11 @@ function App() {
     function calculateTotalOverTimePeriod() {
         let toChart = []
         let currentYear = startYear
-        toChart.push(['Year', {role: 'annotation', type: 'string'}, 'Principle', `${new Date().getFullYear()} Dollars`, 'Total']);
-        if(investingBlocks.length === 0){
+        toChart.push(['Year', {
+            role: 'annotation',
+            type: 'string'
+        }, 'Principle', `${new Date().getFullYear()} Adjusted Dollars`, 'Total']);
+        if (investingBlocks.length === 0) {
             toChart.push([
                 (currentYear).toString(),
                 null,
@@ -51,7 +55,7 @@ function App() {
                 0
             ])
             setChartedData(toChart)
-        }else {
+        } else {
             let moneyInput = investingBlocks[0]['initial']
             let runningTotal = moneyInput;
             let yearCalculatedDollars = moneyInput;
@@ -77,10 +81,16 @@ function App() {
             }
             setChartedData(toChart)
             setEndPrincipal(moneyInput)
+            setEndYearOfCalculationDollars(yearCalculatedDollars)
             setEndInterest(runningTotal - moneyInput)
         }
     }
 
+
+    const style = {
+        display: "flex",
+        justifyContent: "space-between"
+    }
 
     return (
         <div className="App">
@@ -88,10 +98,15 @@ function App() {
             <div>
                 <BoundariesChart data={chartedData}/>
             </div>
-            <hr />
-            {endInterest !== null ? <h3>Interest Gained {endInterest}</h3> : <p></p>}
-            {endPrincipal !== null ? <h3>Net Contributions {endPrincipal}</h3> : <p></p>}
-            <hr />
+            <hr/>
+            {endInterest !== null ?
+                <div style={style}><h3>📈 Interest Gained </h3> <h3>📈 {endInterest.toFixed(2)}</h3></div> : <p></p>}
+            {endYearOfCalculationDollars !== null ? <div style={style}>
+                <h3>💸 {new Date().getFullYear()} Dollars:</h3> <h3>💸 {endYearOfCalculationDollars.toFixed(2)}</h3></div> :
+                <p></p>}
+            {endPrincipal !== null ? <div style={style}><h3>💵 Net Contributions:</h3> <h3>💵 {endPrincipal.toFixed(2)}</h3></div> :
+                <p></p>}
+            <hr/>
             <AddBlock handleAddInvestingBlock={handleAddInvestingBlock}/>
         </div>
     );
