@@ -14,42 +14,6 @@ function App() {
 
     const [endInterest, setEndInterest] = useState(null)
 
-    /*
-    {
-        name: description of this block
-        initial: number of money to start
-        contributions: change per unit time
-        time: how long invested for
-        rateReturn: percent rate of return
-        rateInflation: percent rate of inflation
-    }
-     */
-    /*
-    [        {
-            name: "Test Block",
-            initial: 100000,
-            contributions: 10000,
-            time: 5,
-            rateReturn: 7.0,
-            rateInflation: 2.0,
-        },
-        {
-            name: "Change Rate",
-            initial: null,
-            contributions: 10000,
-            time: 5,
-            rateReturn: 7.0,
-            rateInflation: 2.0,
-        },
-        {
-            name: "Change Rate Again",
-            initial: null,
-            contributions: 15000,
-            time: 5,
-            rateReturn: 7.0,
-            rateInflation: 2.0,
-        },]
-     */
     const [investingBlocks, setInvestingBlocks] = useState([
     ])
 
@@ -118,8 +82,10 @@ function App() {
             <div>
                 <BoundariesChart data={chartedData}/>
             </div>
-            <p>Interest Gained {endInterest}</p>
-            <p>Contributed {endPrincipal}</p>
+            <hr />
+            {endInterest !== null ? <h3>Interest Gained {endInterest}</h3> : <p></p>}
+            {endPrincipal !== null ? <h3>Net Contributions {endPrincipal}</h3> : <p></p>}
+            <hr />
             <AddBlock handleAddInvestingBlock={handleAddInvestingBlock}/>
         </div>
     );
