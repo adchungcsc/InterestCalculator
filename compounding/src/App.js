@@ -41,11 +41,12 @@ function App() {
     function calculateTotalOverTimePeriod() {
         let toChart = []
         let currentYear = startYear
-        toChart.push(['Year', {role: 'annotation', type: 'string'}, 'Principle', 'Total']);
+        toChart.push(['Year', {role: 'annotation', type: 'string'}, 'Principle', `${new Date().getFullYear()} Dollars`, 'Total']);
         if(investingBlocks.length === 0){
             toChart.push([
                 (currentYear).toString(),
                 null,
+                0,
                 0,
                 0
             ])
@@ -53,6 +54,7 @@ function App() {
         }else {
             let moneyInput = investingBlocks[0]['initial']
             let runningTotal = moneyInput;
+            let yearCalculatedDollars = moneyInput;
             for (let i = 0; i < investingBlocks.length; i++) {
                 let currentBlock = investingBlocks[i];
                 for (let j = 0; j < currentBlock['time']; j++) {
@@ -60,10 +62,14 @@ function App() {
                     runningTotal += currentBlock['contributions']
                     let interest = runningTotal * (currentBlock['rateReturn'] / 100)
                     runningTotal += interest
+                    //Adjust for inflation
+                    yearCalculatedDollars += currentBlock['contributions'] + interest
+                    yearCalculatedDollars *= (1 - (currentBlock['rateInflation'] / 100))
                     toChart.push([
                         (currentYear + j).toString(),
                         j !== 0 ? null : currentBlock['name'],
                         moneyInput,
+                        yearCalculatedDollars,
                         runningTotal
                     ])
                 }

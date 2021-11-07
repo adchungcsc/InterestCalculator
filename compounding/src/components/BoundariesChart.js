@@ -17,7 +17,8 @@ const options = {
     },
     series: {
         0: {color: '#080808', lineWidth: 2},
-        1: {color: '#008000', lineWidth: 3},
+        1: {color: '#FFFFFF', lineWidth: 2},
+        2: {color: '#008000', lineWidth: 3},
     },
     curveType: 'function',
     legend: 'none',
