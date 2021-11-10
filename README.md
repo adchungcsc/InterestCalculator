@@ -4,4 +4,8 @@ Submission for weekend hackathon at UNC Chapel Hill, HackNC 2021. Responsive fro
 The calculator can help visualize what happens to your overall investments as rates of inflation, interest, and annual contributions change throughout your life until retirement.
 You can see the nominal and real amount gained by the end of the simulated investment period in that year and year of calculation dollars.
 
+Try it live [here](https://adchungcsc.github.io/index.html) (Hosted on my Github Pages as of Nov 10, 2021)
+
+https://adchungcsc.github.io/index.html
+
 ![](artifacts/InflationAdjusted.png)
